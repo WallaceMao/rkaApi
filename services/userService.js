@@ -3,7 +3,8 @@
  */
 'use strict'
 
-var dbUser = require('../db/dbUser');
+var dbUser = require('../db/dbUser'),
+    Promise = require('bluebird');
 
 /**
  * 获取用户相关的信息
