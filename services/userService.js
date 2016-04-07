@@ -3,15 +3,21 @@
  */
 'use strict'
 
-var dbUser = require('../db/dbUser'),
-    Promise = require('bluebird');
+var db = require('../db'),
+    Promise = require('bluebird'),
+    authUtil = require('../auth/authUtil');
 
 /**
  * 获取用户相关的信息
  * @param params
  */
 function provideGetUser(params){
+    // TODO
 
+    throw new RSQError({
+        errcode: 10001,
+        msg: "not implemented"
+    });
 }
 
 /**
@@ -19,7 +25,24 @@ function provideGetUser(params){
  * @param params
  */
 function provideCreateUser(params){
+    var accessKeyId = params.accessKeyId;
 
+    return db.User.create({
+        username: params.username,
+        password: authUtil.signSHA512(params.password),
+        realName: params.realName,
+        phoneNumber: params.phoneNumber,
+        fromClient: accessKeyId,
+        outerId: params.outerId
+    }).then(function(user){
+            return Promise.resolve({
+                errcode: 0,
+                msg: "ok"
+            });
+        })
+        .catch(function(err){
+            throw err;
+        });
 }
 
 /**

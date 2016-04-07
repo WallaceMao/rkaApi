@@ -6,15 +6,13 @@ var router = express.Router();
  * 创建新用户
  */
 router.post('/', function(req, res, next){
-    var params = {};
-    params.client = req.client;
-    params.body = req.body;
+    var params = req.body;
+    params.accessKeyId = req.client.accessKeyId;
     userService.provideCreateUser(params)
         .then(function(json){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -30,7 +28,6 @@ router.get('/:userId', function(req, res, next) {
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -47,7 +44,6 @@ router.put('/:userId', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });

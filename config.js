@@ -6,12 +6,16 @@
 var config = {};
 
 config.dataSource = {
-    database: 'ttm',
+    database: 'ttm2',
     username: 'root',
     password: 'root',
     host: 'localhost',
     port: '3306',
     dialect: 'mysql'
 };
+
+config.log = {
+    level: 'warn'
+}
 
 module.exports = config;

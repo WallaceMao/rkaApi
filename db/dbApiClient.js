@@ -15,7 +15,7 @@ var Seq = db.Sequelize;
 var Model = seqIns.define('ApiClient', {
     accessKeyId: {type: Seq.STRING, field: 'access_key_id'},
     accessKeySecret: {type: Seq.STRING, field: 'access_key_secret'},
-    authRole: {type: Seq.STRING, field: 'auth_role'},
+    authRole: {type: Seq.STRING, field: 'auth_role', defaultValue: 'apiApp'},
     note: {type: Seq.STRING, field: 'note'},
     status: {type: Seq.STRING, field: 'status'}
 }, {

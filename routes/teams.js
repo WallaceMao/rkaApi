@@ -15,7 +15,6 @@ router.delete('/:teamId/groups/:groupId', function(req, res, next) {
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -29,7 +28,6 @@ router.put('/:teamId/groups/:groupId', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -45,7 +43,6 @@ router.get('/:teamId/groups/:groupId', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -62,7 +59,6 @@ router.post('/:teamId/groups', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -80,7 +76,6 @@ router.get('/:teamId/groups', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -96,7 +91,6 @@ router.delete('/:teamId/members/:userId', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -112,7 +106,6 @@ router.post('/:teamId/members/:userId', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -130,7 +123,6 @@ router.post('/:teamId/members', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -146,7 +138,6 @@ router.get('/:teamId/members', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -163,7 +154,6 @@ router.put('/:teamId', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -179,7 +169,6 @@ router.get('/:teamId', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });
@@ -196,7 +185,6 @@ router.post('/', function(req, res, next){
             res.json(json);
         })
         .catch(function(err){
-            winston.error(err.stack);
             next(err);
         });
 });

@@ -5,20 +5,13 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('rkaapi:server');
 var http = require('http');
-var winston = require('winston');
+var RSQError = require('../global/RSQError');
 
 /**
- * Initialize global logger with winston
+ * global error
  */
-GLOBAL.winston = winston;
-winston.add(winston.transports.File, {
-    filename: __dirname + '/logs/winston.log'
-});
-winston.handleExceptions(new winston.transports.File({
-    filename: __dirname + '/logs/exception.log'
-}));
+GLOBAL.RSQError = RSQError;
 
 /**
  * Get port from environment and store in Express.
@@ -98,5 +91,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
 }

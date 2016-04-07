@@ -33,3 +33,11 @@ User.belongsTo(Team, {foreignKey: 'teamId', as: 'team'});
 UserDept.belongsTo(Department, {foreignKey: 'departmentId', as: 'department'});
 UserDept.belongsTo(User, {foreignKey: 'userId', as: 'user'});
 
+
+exports.ApiClient = ApiClient;
+exports.ApiClientUser = ApiClientUser;
+exports.User = User;
+exports.Team = Team;
+exports.Department = Department;
+exports.UserDept = UserDept;
+

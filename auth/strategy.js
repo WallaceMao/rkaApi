@@ -6,7 +6,7 @@
 var PassportStrategy = require('passport-strategy'),
     util = require('util'),
     authUtil = require('./authUtil'),
-    db = require('../db');
+    apiClientService = require('../services/apiClientService');
 
 function Strategy(options, verify){
 
@@ -43,7 +43,7 @@ Strategy.prototype.authenticate = function(req, options) {
     orgSignature = part[1];
 
     verb = req.method.toUpperCase();
-    contentMd5 = req.text ? authUtil.signMd5(req.text) : '';
+    contentMd5 = req.rawBody ? authUtil.signMd5(req.rawBody) : '';
     contentType = req.get('Content-Type');
     date = req.get('Date');
     rkaHeaders = authUtil.getRKAHeaderString(req.headers, 'x-rka');
@@ -59,22 +59,30 @@ Strategy.prototype.authenticate = function(req, options) {
 
     var self = this;
 
-    db.accessClient.findByAccessKeyId(accessKeyId, function(err, client){
-        accessKeySecret = client.accessKeySecret;
+    apiClientService.findByAccessKeyIdAndEnabled(accessKeyId)
+        .then(function(client){
+            if(!client){
+                new RSQError({status: 403, errcode: 10002, msg: "no authenticate"});
+            }
+            accessKeySecret = client.accessKeySecret;
 
-        console.log('beforeString:' + beforeString);
+            console.log('beforeString:' + beforeString);
 
-        var signature = authUtil.sign(beforeString, accessKeySecret);
+            var signature = authUtil.sign(beforeString, accessKeySecret);
 
-        console.log('old signature:' + orgSignature);
-        console.log('signature:' + signature);
+            console.log('old signature:' + orgSignature);
+            console.log('signature:' + signature);
 
-        if(signature == orgSignature){
-            self.success(client);
-        }else{
-            self.fail({msg: 'forbidden'}, 403);
-        }
-    });
+            if(signature == orgSignature){
+                req.client = client;
+                self.success(client);
+            }else{
+                self.fail({msg: 'forbidden'}, 403);
+            }
+        })
+        .catch(function(err){
+            throw err;
+        });
 }
 
 module.exports = Strategy;

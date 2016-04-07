@@ -23,3 +23,7 @@ exports.signMd5 = function(str){
 exports.sign = function(beforeStr, key){
     return crypto.createHmac('sha1', key).update(beforeStr).digest('base64');
 }
+
+exports.signSHA512 = function(str){
+    return crypto.createHash('sha512').update(str).digest('hex');
+}
